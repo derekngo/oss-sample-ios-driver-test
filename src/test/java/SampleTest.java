@@ -1,7 +1,10 @@
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.uiautomation.ios.IOSCapabilities;
 //import org.security.krb5.iternal.crypto.Des;
 
 import java.net.URL;
@@ -11,7 +14,7 @@ import java.net.URL;
  */
 public class SampleTest {
 
-
+/*
     @Test
     public void simpleSampleSeleniumTest() throws Exception {
         WebDriver iosDriver;
@@ -44,6 +47,39 @@ public class SampleTest {
         iosDriver.quit();
 
     }
+*/
+    @Test
+    public void sampleIOSDriverInternationalMountainsTest() throws Exception {
+        IOSCapabilities caps_ios = IOSCapabilities.iphone("InternationalMountains");
+        caps_ios.setCapability("simulator", true);
+        WebDriver driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), caps_ios);
+                //IOSCapabilities.iphone("InternationalMountains"));
 
+        // driver.get("http://utexas.edu");
+
+        driver.quit();
+    }
+
+    // simple exercise
+    @Test
+    public void sampleIOSDriverInternationalMountainsClickNewTest() throws Exception {
+        System.out.println("sampleIOSDriverInternationalMountainsClickNewTest()");
+        IOSCapabilities caps_ios = IOSCapabilities.iphone("InternationalMountains");
+        caps_ios.setCapability("simulator", true);
+        WebDriver driver = new RemoteWebDriver(new URL("http://localhost:5555/wd/hub"), caps_ios);
+        //IOSCapabilities.iphone("InternationalMountains"));
+
+        WebElement newMountainElement = driver.findElement(By.name("New Mountain"));
+        newMountainElement.click();
+
+        //System.out.println(driver.findElement(By.name("New Mountain has a height of 9,025 feet")).getText());
+
+        // access the content
+        By selector = By.xpath("//UIAStaticText[contains(@name,'height')]");
+        WebElement text = driver.findElement(selector);
+        System.out.println(text.getAttribute("name"));
+
+        driver.quit();
+    }
 
 }
